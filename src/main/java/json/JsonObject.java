@@ -12,11 +12,9 @@ public class JsonObject extends Json {
     public JsonObject(JsonPair... jsonPairs) {
         jsonData = new HashMap<>();
         for (int i = 0; i < jsonPairs.length; ++i) {
-            //if(!jsonData.containsKey(jsonPairs[i].key))
             jsonData.put(jsonPairs[i].key, jsonPairs[i].value);
 
         }
-        //  System.out.println(jsonData.keySet());
     }
 
     @Override
@@ -52,7 +50,7 @@ public class JsonObject extends Json {
 
     public JsonObject projection(String... names) {
         JsonObject ans = new JsonObject();
-        for (int i = 0 ; i < names.length; ++i){
+        for (int i = 0; i < names.length; ++i) {
             if (jsonData.containsKey(names[i]))
                 ans.add(new JsonPair(names[i], jsonData.get(names[i])));
         }

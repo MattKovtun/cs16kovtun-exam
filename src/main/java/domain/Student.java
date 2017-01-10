@@ -2,13 +2,13 @@ package domain;
 
 import json.*;
 
-import java.util.HashMap;
+
 
 /**
  * Created by Andrii_Rodionov on 1/3/2017.
  */
 public class Student extends BasicStudent {
-    private HashMap<String, Json> innerStudent;
+    public static final int PASS_MARK = 3;
     private JsonPair[] studentData;
     public String name, surname;
     public Integer year;
@@ -36,11 +36,11 @@ public class Student extends BasicStudent {
             JsonPair course = new JsonPair("course", new JsonString(exams[i].key));
             JsonPair mark = new JsonPair("mark", new JsonNumber(exams[i].value));
             JsonPair status;
-            if (exams[i].value >= 3) {
+            if (exams[i].value >= PASS_MARK)
                 status = new JsonPair("passed", new JsonBoolean(true));
-            } else {
+            else
                 status = new JsonPair("passed", new JsonBoolean(false));
-            }
+
             tmp[i] = new JsonObject(course, mark, status);
         }
         studentData[3] = new JsonPair("exams", new JsonArray(tmp));
