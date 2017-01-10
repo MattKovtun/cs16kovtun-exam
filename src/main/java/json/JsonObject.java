@@ -1,31 +1,62 @@
 package json;
 
+import java.util.HashMap;
+
 /**
  * Created by Andrii_Rodionov on 1/3/2017.
  */
 public class JsonObject extends Json {
+    public HashMap<String, Json> jsonData;
+
 
     public JsonObject(JsonPair... jsonPairs) {
-        // ToDo
+        jsonData = new HashMap<>();
+        for (int i = 0; i < jsonPairs.length; ++i) {
+            //if(!jsonData.containsKey(jsonPairs[i].key))
+            jsonData.put(jsonPairs[i].key, jsonPairs[i].value);
+
+        }
+        //  System.out.println(jsonData.keySet());
     }
 
     @Override
     public String toJson() {
-        // ToDo
-        return null;
+        String res = "{";
+        int count = 0;
+        for (String k : jsonData.keySet()) {
+            count++;
+            res += new JsonString(k).toJson();
+            res += ":";
+            res += jsonData.get(k).toJson();
+            if (!(count == jsonData.keySet().size())) {
+                res += ",";
+            }
+        }
+
+        res += "}";
+        System.out.println(res);
+        return res;
     }
 
     public void add(JsonPair jsonPair) {
-        // ToDo
+        jsonData.put(jsonPair.key, jsonPair.value);
+
     }
 
     public Json find(String name) {
-        // ToDo
-        return null;
+        if (jsonData.containsKey(name))
+            return jsonData.get(name);
+        else
+            return null;
     }
 
     public JsonObject projection(String... names) {
-        // ToDo
-        return null;
+        JsonObject ans = new JsonObject();
+        for (int i = 0 ; i < names.length; ++i){
+            if (jsonData.containsKey(names[i]))
+                ans.add(new JsonPair(names[i], jsonData.get(names[i])));
+        }
+
+        return ans;
     }
 }

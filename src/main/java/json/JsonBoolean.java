@@ -4,14 +4,16 @@ package json;
  * Created by Andrii_Rodionov on 1/4/2017.
  */
 public class JsonBoolean extends Json {
+    private Boolean myBool;
+
 
     public JsonBoolean(Boolean bool) {
-        // ToDo
+        this.myBool = bool;
     }
 
     @Override
     public String toJson() {
-        // ToDo
-        return null;
+        return Boolean.toString(myBool);
+        //return new JsonString(Boolean.toString(myBool)).toJson();
     }
 }
